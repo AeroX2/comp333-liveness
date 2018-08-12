@@ -1,0 +1,5 @@
+live-in k0 j1
+gA := k0 - 1
+h5 := mem[j1+12]
+fX := gA * h5
+live-out fX
