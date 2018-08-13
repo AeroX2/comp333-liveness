@@ -9,15 +9,17 @@ public class Test1 {
 	private String dataFileName = "ex2";
 	private String dataDir = new File("data", dataFileName).getAbsolutePath();
 	private String fInName = dataDir + ".dat";
-	private String solnInName = dataDir + ".out";
+	private String solnInName = dataDir + ".out.pro";
 
-	@Test
-	public void testReadWrite() {
-		TreeMap<String, Integer> soln;
-		Liveness a = new Liveness();
-		soln = a.generateSolution(fInName);
-		a.writeSolutionToFile(soln, solnInName);
+//	@Test
+//	public void testReadWrite() {
+//		TreeMap<String, Integer> soln;
+//		Liveness a = new Liveness();
+//		soln = a.generateSolution(fInName);
+//		a.writeSolutionToFile(soln, solnInName);
+//	}
 
-		//TODO Write tests
-	}
+	//TODO: Test line range
+
+	//TODO: Check register allocations do not overlap
 }
