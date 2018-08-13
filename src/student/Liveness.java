@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Liveness {
-    final boolean DEBUG = true; 
+    final boolean DEBUG = false;
     
     class Pair {
         int start;
@@ -99,6 +99,7 @@ public class Liveness {
         int registerCount = 1;
         TreeMap<String, Integer> registers = new TreeMap<>();
         while (registers.size() < variableMap.size()) {
+            //Find the node with the earliest deadline
             Variable firstDeadline = variables.remove(0);
             println("First deadline: " + firstDeadline);
             println("Assigning register: " + firstDeadline.name + " value " + registerCount);
@@ -106,12 +107,17 @@ public class Liveness {
 
             Optional<Variable> first;
             do {
+                //Filter out every variable node, that is not the firstDeadline,
+                //is less than the start of the firstDeadline
+                //and intersects with the firstDeadline.
                 Variable finalFirstDeadline = firstDeadline;
                 Stream<Variable> stream = variables.stream()
                         .filter((v) -> v != finalFirstDeadline)
                         .filter((v) -> v.pairs.get(0).end < finalFirstDeadline.pairs.get(0).start)
                         .filter((v) -> v.pairs.stream().noneMatch((p1) -> finalFirstDeadline.pairs.stream().anyMatch(p1::intersects)));
 
+                //Get the first node that fulfills the requirements
+                //and remove it from the variables list and set it to the same register as the firstDeadline
                 first = stream.findFirst();
                 if (first.isPresent()) {
                     firstDeadline = first.get();
@@ -121,6 +127,7 @@ public class Liveness {
                     println("Assigning register: " + firstDeadline.name + " value " + registerCount);
                     registers.put(firstDeadline.name, registerCount);
                 }
+                //Repeat until there are no nodes that furfill the requirements.
             } while (first.isPresent());
 
             registerCount++;
@@ -155,7 +162,7 @@ public class Liveness {
     }
 
     public static void main(String[] args) {
-        String dataFileName = "ex2";
+        String dataFileName = "ex1";
         String dataDir = new File("data", dataFileName).getAbsolutePath();
         String fInName = dataDir + ".dat";
         String solnInName = dataDir + ".out.pro";
