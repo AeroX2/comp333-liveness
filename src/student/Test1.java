@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import org.junit.Test;
 
 public class Test1 {
-	private String dataFileName = "ex1";
+	private String dataFileName = "ex2";
 	private String dataDir = new File("data", dataFileName).getAbsolutePath();
 	private String fInName = dataDir + ".dat";
 	private String solnInName = dataDir + ".out";
