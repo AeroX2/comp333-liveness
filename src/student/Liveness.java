@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/*
+ * Name: James Ridey
+ * Student ID: 44805632
+ */
 public class Liveness {
     final boolean DEBUG = false;
     
