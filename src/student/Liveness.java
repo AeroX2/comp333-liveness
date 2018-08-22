@@ -1,5 +1,7 @@
 package student;
 
+import jdk.nashorn.internal.runtime.options.Option;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +21,9 @@ import java.util.stream.Stream;
  * Student ID: 44805632
  */
 public class Liveness {
-    final boolean DEBUG = false;
+    private final boolean DEBUG = true;
     
-    class Pair {
+    static class Pair {
         int start;
         int end;
 
@@ -30,9 +32,8 @@ public class Liveness {
             this.end = end;
         }
 
-        public boolean intersects(Pair other) {
-            return (this.start >= other.start && this.start <= other.end) ||
-                   (this.end >= other.start && this.end <= other.end);
+        private boolean intersects(Pair other) {
+            return this.start <= other.end && other.end <= this.end;
         }
 
         @Override
@@ -56,9 +57,9 @@ public class Liveness {
         }
     }
 
-    String variableRegex = "[a-zA-Z][a-zA-Z0-9]";
-    String rawStatementRegex = String.format("(?:live-\\w+)|(?:mem)|(%s) ?:=|(%s)", variableRegex, variableRegex);
-    Pattern statementRegex = Pattern.compile(rawStatementRegex);
+    private String variableRegex = "[a-zA-Z][a-zA-Z0-9]";
+    private String rawStatementRegex = String.format("(?:live-\\w+)|(?:mem)|(%s) *:=|(%s)", variableRegex, variableRegex);
+    private Pattern statementRegex = Pattern.compile(rawStatementRegex);
 
     public TreeMap<String, Integer> generateSolution(String fInName) {
         // PRE: fInName is a valid input file
@@ -147,7 +148,7 @@ public class Liveness {
         // POST: the register allocation in t is written to file solnName
         println(solnName);
 
-        long registerCount = tree.values().stream().distinct().count();
+        long registerCount = tree.keySet().stream().distinct().count();
 
         Path path = Paths.get(solnName);
         //Use try-with-resource to get auto-closeable writer instance
@@ -161,12 +162,12 @@ public class Liveness {
         }
     }
     
-    public void println(Object o) {
+    private void println(Object o) {
         if (DEBUG) System.out.println(o);
     }
 
     public static void main(String[] args) {
-        String dataFileName = "ex1";
+        String dataFileName = "ex3";
         String dataDir = new File("data", dataFileName).getAbsolutePath();
         String fInName = dataDir + ".dat";
         String solnInName = dataDir + ".out.pro";
