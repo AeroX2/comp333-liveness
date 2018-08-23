@@ -1,0 +1,9 @@
+live-in k0 j1
+gA := mem[j1+12]
+h5 := k0 - 1
+fX := gA * h5
+eE := mem[j1+8]
+m6 := mem[j1+16+fX]
+c1 := eE + 8
+k0 := m6 + 4 + j1
+live-out c1 k0 j1

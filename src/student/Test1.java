@@ -15,6 +15,24 @@ public class Test1 {
 	private String fInName = dataDir + ".dat";
 	private String solnInName = dataDir + ".out.pro";
 
+
+    private int randomRange(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max+1);
+    }
+
+    private ArrayList<String> firstSet = new ArrayList<>(Arrays.asList(
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")));
+    private ArrayList<String> secondSet = new ArrayList<>(Arrays.asList(
+            "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")));
+    private String newId() {
+        return firstSet.remove(0) + secondSet.remove(0);
+    }
+
+    public Test1() {
+        Collections.shuffle(firstSet);
+        Collections.shuffle(secondSet);
+    }
+
 	@Test
 	public void testReadWrite() {
 		Liveness a = new Liveness();
@@ -22,84 +40,50 @@ public class Test1 {
 		a.writeSolutionToFile(soln, solnInName);
 	}
 
-	private int randomRange(int min, int max) {
-		return ThreadLocalRandom.current().nextInt(min, max+1);
-	}
-
-	private static int firstCharacter = 0;
-    private static int secondCharacter = 0;
-    private String firstSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private String secondSet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	private String newId() {
-        secondCharacter++;
-        if (firstCharacter >= firstSet.length()) firstCharacter++;
-        return String.valueOf(firstSet.charAt(firstCharacter))+
-               String.valueOf(secondSet.charAt(secondCharacter));
-    }
-
-	//TODO: Test line range
-
-
-
 	@Test
 	public void testEverything() {
 		int programLength = randomRange(10,70);
-	    List<Integer> linesNotFilled = IntStream.range(1,programLength).boxed().collect(Collectors.toList());
+        int registerAmount = randomRange(1,15);
 
-	    //Create a bunch of ranges for each line in the program
-        //And assign a register to it
-	    int registerAmount = 0;
-        HashMap<Integer,ArrayList<Liveness.Pair>> registerRanges = new HashMap<>();
-	    while (linesNotFilled.size() > 0) {
-	        int size = linesNotFilled.size()-1;
-	        int indexStart = randomRange(0,size);
-	        int randomPadding = randomRange(0,size);
+        HashMap<Integer,Set<Integer>> registerLineAssignment = new HashMap<>();
+		for (int i = 0; i < programLength; i++) {
+			Set<Integer> randomRegisters = new HashSet<>();
+			for (int j = 0; j < randomRange(1,6); j++) randomRegisters.add(randomRange(1,registerAmount));
 
-            ArrayList<Liveness.Pair> pairs = registerRanges.computeIfAbsent(registerAmount, k -> new ArrayList<>());
-	        if (indexStart+randomPadding > size) {
-	            if (pairs.size() <= 0) {
-	               randomPadding = 0;
-                } else {
-	                registerAmount++;
-                    continue;
-                }
+			Set<Integer> registers = registerLineAssignment.computeIfAbsent(i, c -> new HashSet<>());
+			registers.addAll(randomRegisters);
+		}
+
+		String[] operators = {"+","-","*","/"};
+		String[] translation = new String[registerAmount+1];
+		for (int i = 1; i <= registerAmount; i++) translation[i] = newId();
+
+		StringBuilder line = new StringBuilder(registerAmount);
+		line.append("\n")
+            .append(registerAmount)
+            .append("\n")
+            .append(registerLineAssignment);
+		for (Set<Integer> registerSet : registerLineAssignment.values()) {
+		    ArrayList<Integer> registers = new ArrayList<>(registerSet);
+
+		    line.append(translation[registers.get(0)])
+                .append(" := ");
+            if (registers.size() > 1) {
+                line.append(registers.stream()
+                        .skip(1)
+                        .map(i -> translation[i])
+                        .reduce((s1, s2) -> s1 + " "+operators[randomRange(0,operators.length-1)]+" " + s2)
+                        .orElse("0"));
+            } else {
+                line.append(new Random().ints(randomRange(1,4),1,50)
+                        .mapToObj(String::valueOf)
+                        .reduce((s1, s2) -> s1 + " "+operators[randomRange(0,operators.length-1)]+" " + s2)
+                        .orElse("0"));
             }
+            line.append("\n");
+		}
+		line.append("live-out");
 
-	        int rangeStart = linesNotFilled.get(indexStart);
-            int rangeEnd   = linesNotFilled.get(indexStart+randomPadding);
-            pairs.add(new Liveness.Pair(rangeStart, rangeEnd));
-
-            if (randomPadding != 0) linesNotFilled.remove(indexStart+randomPadding);
-	        linesNotFilled.remove(indexStart);
-        }
-
-        System.out.println(registerRanges);
-
-        String[] lines = new String[programLength+1];
-	    Arrays.fill(lines,"");
-
-	    for (ArrayList<Liveness.Pair> pairs : registerRanges.values()) {
-            ArrayList<String> variableNames = new ArrayList<>();
-            variableNames.add(newId());
-
-            for (Liveness.Pair pair : pairs) {
-                String variable = variableNames.get(randomRange(0,variableNames.size()-1));
-                if (Math.random() <= 0.5) {
-                    variable = newId();
-                    variableNames.add(variable);
-                }
-
-                lines[pair.start] += lines[pair.start].length() <= 0 ? (variable + " := ") : variable + " + ";
-                lines[pair.end] += lines[pair.end].length() <= 0 ? (variable + " := ") : variable + " + ";
-            }
-        }
-
-        System.out.println(registerAmount);
-
-        lines[0] = "live-in";
-        lines[lines.length-1] = "live-out";
-        for (String line: lines) {
-            System.out.println(line);
-        }
+		System.out.println(line);
 	}
 }

@@ -148,7 +148,7 @@ public class Liveness {
         // POST: the register allocation in t is written to file solnName
         println(solnName);
 
-        long registerCount = tree.keySet().stream().distinct().count();
+        long registerCount = tree.values().stream().distinct().count();
 
         Path path = Paths.get(solnName);
         //Use try-with-resource to get auto-closeable writer instance
