@@ -1,7 +1,5 @@
 package student;
 
-import jdk.nashorn.internal.runtime.options.Option;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -21,7 +18,7 @@ import java.util.stream.Stream;
  * Student ID: 44805632
  */
 public class Liveness {
-    private final boolean DEBUG = true;
+    private final boolean DEBUG = false;
     
     static class Pair {
         int start;
@@ -61,40 +58,36 @@ public class Liveness {
     private String rawStatementRegex = String.format("(?:live-\\w+)|(?:mem)|(%s) *:=|(%s)", variableRegex, variableRegex);
     private Pattern statementRegex = Pattern.compile(rawStatementRegex);
 
-    public TreeMap<String, Integer> generateSolution(String fInName) {
-        // PRE: fInName is a valid input file
-        // POST: returns a TreeMap mapping variables (String) to registers (Integer)
-
-        //Read every line in the file and assign each variable a line range
+    private HashMap<String, Variable> parseLines(Stream<String> lines) {
+        AtomicInteger lineNumber = new AtomicInteger();
         HashMap<String, Variable> variableMap = new HashMap<>();
-        try (Stream<String> line = Files.lines(Paths.get(fInName))) {
-            AtomicInteger lineNumber = new AtomicInteger();
-            line.forEachOrdered((s) -> {
-                int count = lineNumber.incrementAndGet();
 
-                Matcher match = statementRegex.matcher(s);
-                while (match.find()) {
-                    boolean assignment = false;
-                    String variableName = match.group(2);
-                    if (variableName == null) {
-                        assignment = true;
-                        variableName = match.group(1);
-                    }
-                    if (variableName == null) continue;
+        lines.forEachOrdered((s) -> {
+            int count = lineNumber.incrementAndGet();
 
-                    if (variableMap.containsKey(variableName)) {
-                        if (assignment) variableMap.get(variableName).pairs.add(0, new Pair(count, count));
-                        else variableMap.get(variableName).pairs.get(0).end = count;
-                    } else {
-                        variableMap.put(variableName, new Variable(variableName, count));
-                    }
+            Matcher match = statementRegex.matcher(s);
+            while (match.find()) {
+                boolean assignment = false;
+                String variableName = match.group(2);
+                if (variableName == null) {
+                    assignment = true;
+                    variableName = match.group(1);
                 }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+                if (variableName == null) continue;
 
+                if (variableMap.containsKey(variableName)) {
+                    if (assignment) variableMap.get(variableName).pairs.add(0, new Pair(count, count));
+                    else variableMap.get(variableName).pairs.get(0).end = count;
+                } else {
+                    variableMap.put(variableName, new Variable(variableName, count));
+                }
+            }
+        });
+
+        return variableMap;
+    }
+
+    private TreeMap<String, Integer> variableScheduling(HashMap<String, Variable> variableMap) {
         //Find an optimal arrangement for variable layout
         //1st idea using EDF scheduling and repeating it for as long as there are valid positions
         ArrayList<Variable> variables = new ArrayList<>(variableMap.values());
@@ -137,10 +130,28 @@ public class Liveness {
 
             registerCount++;
         }
-
         println(registers);
 
         return registers;
+    }
+
+    public TreeMap<String, Integer> generateSolutionFromStream(Stream<String> lines) {
+        HashMap<String, Variable> variableMap = parseLines(lines);
+        return variableScheduling(variableMap);
+    }
+
+    public TreeMap<String, Integer> generateSolution(String fInName) {
+        // PRE: fInName is a valid input file
+        // POST: returns a TreeMap mapping variables (String) to registers (Integer)
+
+        //Read every line in the file and assign each variable a line range
+        HashMap<String, Variable> variableMap;
+        try (Stream<String> lines = Files.lines(Paths.get(fInName))) {
+            return generateSolutionFromStream(lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void writeSolutionToFile(TreeMap<String, Integer> tree, String solnName) {
