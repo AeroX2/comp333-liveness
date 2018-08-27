@@ -66,7 +66,7 @@ public class Liveness {
 
     private String variableRegex = "[a-zA-Z][a-zA-Z0-9]";
     private String rawStatementRegex = String.format("(?:live-\\w+)|(?:mem)|(%s) *:=|(%s)", variableRegex, variableRegex);
-    private Pattern statementRegex = Pattern.compile(rawStatementRegex);
+    public Pattern statementRegex = Pattern.compile(rawStatementRegex);
 
     private HashMap<String, Variable> parseLines(Stream<String> lines) {
         AtomicInteger lineNumber = new AtomicInteger();

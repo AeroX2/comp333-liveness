@@ -3,10 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="af80faab-bc23-4814-bede-d326c5bae319" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/student/Liveness$Pair.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/student/Liveness$Pair.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/student/Liveness.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/student/Liveness.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/student/Test1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/student/Test1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/ex2mod.out.pro" beforeDir="false" afterPath="$PROJECT_DIR$/data/ex2mod.out.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ex2.out.pro" beforeDir="false" afterPath="$PROJECT_DIR$/data/ex2.out.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ex3.dat" beforeDir="false" afterPath="$PROJECT_DIR$/data/james.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ex3.out.pro" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/student/Liveness.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/Liveness.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/student/Test1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/student/Test1.java" afterDir="false" />
     </list>
@@ -66,19 +67,19 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dat" value="723" />
-          <entry key="java" value="16649" />
+          <entry key="dat" value="1238" />
+          <entry key="java" value="18351" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="16649" />
-          <entry key="PLAIN_TEXT" value="723" />
+          <entry key="JAVA" value="18351" />
+          <entry key="PLAIN_TEXT" value="1238" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="dat" value="9" />
+          <entry key="dat" value="10" />
           <entry key="java" value="5" />
           <entry key="out" value="1" />
           <entry key="pro" value="4" />
@@ -87,7 +88,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="5" />
-          <entry key="PLAIN_TEXT" value="10" />
+          <entry key="PLAIN_TEXT" value="11" />
           <entry key="ProGuard File" value="4" />
         </counts>
       </usages-collector>
@@ -98,8 +99,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/student/Liveness.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
+            <state relative-caret-position="-869">
+              <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#720#721#0" expanded="true" />
@@ -114,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/ex2mod.dat">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="45">
+              <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -123,11 +124,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/student/Test1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="76" column="33" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
+            <state relative-caret-position="180">
+              <caret line="146" column="17" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/james.dat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
             </state>
           </provider>
         </entry>
@@ -151,8 +161,8 @@
         <option value="$PROJECT_DIR$/data/ex1.dat" />
         <option value="$PROJECT_DIR$/data/ex2.dat" />
         <option value="$PROJECT_DIR$/data/ex2mod.dat" />
-        <option value="$PROJECT_DIR$/data/ex3.dat" />
         <option value="$PROJECT_DIR$/src/student/Liveness.java" />
+        <option value="$PROJECT_DIR$/data/ex3.dat" />
         <option value="$PROJECT_DIR$/src/student/Test1.java" />
       </list>
     </option>
@@ -214,7 +224,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535333745186" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535342079028" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -238,7 +248,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.Test">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -303,34 +313,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Test - 2018.08.23 at 15h 54m 23s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 21m 30s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 15h 55m 58s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 21m 42s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 17h 24m 26s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 21m 48s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 17h 25m 35s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 21m 56s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 17h 25m 39s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 26m 55s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 17h 25m 43s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 27m 14s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 17h 26m 04s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 27m 33s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 17h 51m 59s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 27m 56s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 18h 15m 15s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 41m 08s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="Test - 2018.08.23 at 18h 33m 40s.xml">
+    <history-entry file="Test - 2018.08.27 at 13h 42m 09s.xml">
       <configuration name="Test" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -338,7 +348,7 @@
     <frame x="-1" y="0" width="1922" height="1047" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1256656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1256656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -347,7 +357,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37770563" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37770563" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39935064" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -376,7 +386,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/student/Test1.java</url>
-          <line>159</line>
+          <line>168</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
@@ -495,9 +505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/ex3.dat">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/ex1.dat">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -507,13 +514,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/ex3.out.pro">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/ex2mod.dat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-8-jdk/src.zip!/java/util/function/Predicate.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -536,10 +536,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/ex2mod.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/student/Liveness.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="128" column="28" selection-start-line="128" selection-start-column="28" selection-end-line="128" selection-end-column="28" />
+        <state relative-caret-position="-869">
+          <caret line="88" column="20" selection-start-line="88" selection-start-column="20" selection-end-line="88" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#720#721#0" expanded="true" />
@@ -550,10 +557,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/james.dat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/student/Test1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="76" column="33" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
+        <state relative-caret-position="180">
+          <caret line="146" column="17" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

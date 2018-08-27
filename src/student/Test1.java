@@ -3,8 +3,11 @@ package student;
 import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Matcher;
+
 import org.junit.Test;
 
 public class Test1 {
@@ -73,21 +76,27 @@ public class Test1 {
     }
 
     @Test
-    public void testRegisterClash() {
-        String dataDir = new File("data", "ext2mod.dat").getAbsolutePath();
-        TreeMap<String, Integer> results = liveness.generateSolution(dataDir);
+    public void testRegisterClash() throws IOException {
+        File dataDir = new File("data", "james.dat");
+        TreeMap<String, Integer> results = liveness.generateSolution(dataDir.getAbsolutePath());
 
-        Set<Integer> seen = new HashSet<>();
-        Stack<Integer> stack = new Stack<>();
-        for (Integer value : results.values()) {
-            if (seen.contains(value)) {
-               assertEquals(stack.pop(), value);
-               seen.remove(value);
-            } else {
-               stack.push(value);
-               seen.add(value);
+        HashMap<Integer, String> registerMap = new HashMap<>();
+        Files.lines(dataDir.toPath()).forEach(l -> {
+            Matcher m = liveness.statementRegex.matcher(l);
+            while (m.find()) {
+                String variableName = m.group(2);
+                if (variableName == null) variableName = m.group(1);
+                if (variableName == null) continue;
+
+                int register = results.get(variableName);
+                if (registerMap.containsKey(register)) {
+                    assertEquals(registerMap.get(register), variableName);
+                    registerMap.remove(register);
+                } else {
+                    registerMap.put(register, variableName);
+                }
             }
-        }
+        });
     }
 
     @Test
