@@ -73,6 +73,24 @@ public class Test1 {
     }
 
     @Test
+    public void testRegisterClash() {
+        String dataDir = new File("data", "ext2mod.dat").getAbsolutePath();
+        TreeMap<String, Integer> results = liveness.generateSolution(dataDir);
+
+        Set<Integer> seen = new HashSet<>();
+        Stack<Integer> stack = new Stack<>();
+        for (Integer value : results.values()) {
+            if (seen.contains(value)) {
+               assertEquals(stack.pop(), value);
+               seen.remove(value);
+            } else {
+               stack.push(value);
+               seen.add(value);
+            }
+        }
+    }
+
+    @Test
     public void testEmptyProgram() {
         String lines = "live-in a1\n" +
                        "live-out a1";

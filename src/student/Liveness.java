@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * Student ID: 44805632
  */
 public class Liveness {
-    private final boolean DEBUG = false;
+    private final boolean DEBUG = true;
     
     static class Pair {
         int start;
@@ -29,8 +29,13 @@ public class Liveness {
             this.end = end;
         }
 
+        Pair(Pair pair) {
+            this.start = pair.start;
+            this.end = pair.end;
+        }
+
         private boolean intersects(Pair other) {
-            return this.start <= other.end && other.end <= this.end;
+            return this.start <= other.end && other.start <= this.end;
         }
 
         @Override
@@ -41,11 +46,16 @@ public class Liveness {
 
     class Variable {
         String name;
-        ArrayList<Pair> pairs = new ArrayList<>();
+        List<Pair> pairs = new ArrayList<>();
 
         Variable(String name, int start) {
             this.name = name;
             this.pairs.add(new Pair(start, start));
+        }
+
+        Variable(Variable variable) {
+            this.name = variable.name;
+            this.pairs = variable.pairs.stream().map(Pair::new).collect(Collectors.toList());
         }
 
         @Override
@@ -90,43 +100,39 @@ public class Liveness {
     private TreeMap<String, Integer> variableScheduling(HashMap<String, Variable> variableMap) {
         //Find an optimal arrangement for variable layout
         //1st idea using EDF scheduling and repeating it for as long as there are valid positions
-        ArrayList<Variable> variables = new ArrayList<>(variableMap.values());
-        variables.sort(Comparator.comparingInt((Variable a) -> -a.pairs.get(0).end));
-        println(variables);
+        ArrayList<Variable> variablesToBeAssigned = new ArrayList<>(variableMap.values());
+        variablesToBeAssigned.sort(Comparator.comparingInt((Variable a) -> -a.pairs.get(0).end));
+        println(variablesToBeAssigned);
 
         int registerCount = 1;
         TreeMap<String, Integer> registers = new TreeMap<>();
         while (registers.size() < variableMap.size()) {
             //Find the node with the earliest deadline
-            Variable firstDeadline = variables.remove(0);
+            //Assign it to the registers map
+            Variable firstDeadline = variablesToBeAssigned.remove(0);
             println("First deadline: " + firstDeadline);
             println("Assigning register: " + firstDeadline.name + " value " + registerCount);
             registers.put(firstDeadline.name, registerCount);
 
-            Optional<Variable> first;
+            List<Variable> variablesTemp = new ArrayList<>(variablesToBeAssigned);
             do {
-                //Filter out every variable node, that is not the firstDeadline,
-                //is less than the start of the firstDeadline
-                //and intersects with the firstDeadline.
+                //Remove everything that intersects with the first deadline
                 Variable finalFirstDeadline = firstDeadline;
-                Stream<Variable> stream = variables.stream()
-                        .filter((v) -> v != finalFirstDeadline)
-                        .filter((v) -> v.pairs.get(0).end < finalFirstDeadline.pairs.get(0).start)
-                        .filter((v) -> v.pairs.stream().noneMatch((p1) -> finalFirstDeadline.pairs.stream().anyMatch(p1::intersects)));
+                variablesTemp.removeIf((v) -> v.pairs.stream()
+                        .anyMatch((p1) -> finalFirstDeadline.pairs.stream().anyMatch(p1::intersects)));
 
-                //Get the first node that fulfills the requirements
-                //and remove it from the variables list and set it to the same register as the firstDeadline
-                first = stream.findFirst();
-                if (first.isPresent()) {
-                    firstDeadline = first.get();
+                //Get the next earliest deadline
+                if (variablesTemp.size() > 0) {
+                    firstDeadline = variablesTemp.get(0);
                     println("Next deadline that doesn't intersect: " + firstDeadline);
 
-                    variables.remove(firstDeadline);
+                    variablesToBeAssigned.remove(firstDeadline);
+
                     println("Assigning register: " + firstDeadline.name + " value " + registerCount);
                     registers.put(firstDeadline.name, registerCount);
                 }
-                //Repeat until there are no nodes that furfill the requirements.
-            } while (first.isPresent());
+                //Repeat until there are no nodes that fulfill the requirements.
+            } while (variablesTemp.size() > 0);
 
             registerCount++;
         }
@@ -178,7 +184,7 @@ public class Liveness {
     }
 
     public static void main(String[] args) {
-        String dataFileName = "ex3";
+        String dataFileName = "ex2mod";
         String dataDir = new File("data", dataFileName).getAbsolutePath();
         String fInName = dataDir + ".dat";
         String solnInName = dataDir + ".out.pro";
