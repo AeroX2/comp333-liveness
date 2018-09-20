@@ -1,0 +1,21 @@
+19
+Bz 16
+CI 3
+Ja 15
+K0 1
+Mr 13
+Mu 19
+Mz 7
+Nu 4
+Pm 9
+cv 14
+l5 6
+oA 18
+qH 8
+rb 17
+sn 12
+sx 2
+uP 11
+y9 4
+yR 10
+zc 5

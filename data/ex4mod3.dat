@@ -1,0 +1,12 @@
+live-in a0 b0 d0
+c0 := a0 + 8
+e0 := mem[c0+12*b0]
+g0 := a0 + e0
+z0 := g0 * a0
+k0 := 10 + g0 * 2 +z0
+h0 := mem[e0+e0+k0]
+j0 := d0 - 12
+f0 := j0 * k0
+z0 := h0 / 2
+i0 := j0 * 5 + 2
+live-out f0 i0 k0 z0

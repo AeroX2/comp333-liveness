@@ -77,7 +77,7 @@ public class Test1 {
 
     @Test
     public void testRegisterClash() throws IOException {
-        File dataDir = new File("data", "james.dat");
+        File dataDir = new File("data", "ex15.dat");
         TreeMap<String, Integer> results = liveness.generateSolution(dataDir.getAbsolutePath());
 
         HashMap<Integer, String> registerMap = new HashMap<>();

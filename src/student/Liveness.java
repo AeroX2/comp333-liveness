@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  */
 public class Liveness {
     private final boolean DEBUG = true;
-    
+
     static class Pair {
         int start;
         int end;
@@ -44,9 +44,9 @@ public class Liveness {
         }
     }
 
-    class Variable {
+    static class Variable {
         String name;
-        List<Pair> pairs = new ArrayList<>();
+        public List<Pair> pairs = new ArrayList<>();
 
         Variable(String name, int start) {
             this.name = name;
@@ -60,7 +60,7 @@ public class Liveness {
 
         @Override
         public String toString() {
-            return String.format("%s=%s", name, pairs.stream().map(Pair::toString).collect(Collectors.joining("," )));
+            return String.format("%s=%s", name, pairs.stream().map(Pair::toString).collect(Collectors.joining(",")));
         }
     }
 
@@ -170,7 +170,7 @@ public class Liveness {
         Path path = Paths.get(solnName);
         //Use try-with-resource to get auto-closeable writer instance
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(String.valueOf(registerCount)+"\n");
+            writer.write(String.valueOf(registerCount) + "\n");
             for (Map.Entry<String, Integer> entry : tree.entrySet()) {
                 writer.write(String.format("%s %d\n", entry.getKey(), entry.getValue()));
             }
@@ -178,19 +178,44 @@ public class Liveness {
             e.printStackTrace();
         }
     }
-    
+
     private void println(Object o) {
         if (DEBUG) System.out.println(o);
     }
 
     public static void main(String[] args) {
-        String dataFileName = "ex2mod";
-        String dataDir = new File("data", dataFileName).getAbsolutePath();
-        String fInName = dataDir + ".dat";
-        String solnInName = dataDir + ".out.pro";
-        
+//        String dataFileName = "ex3mod";
+//        String dataDir = new File("data", dataFileName).getAbsolutePath();
+//        String fInName = dataDir + ".dat";
+//        String solnInName = dataDir + ".out.pro";
+//
         Liveness liveness = new Liveness();
-        TreeMap<String, Integer> soln = liveness.generateSolution(fInName);
-        liveness.writeSolutionToFile(soln, solnInName);
+//        TreeMap<String, Integer> soln = liveness.generateSolution(fInName);
+//        liveness.writeSolutionToFile(soln, solnInName);
+
+        HashMap<String, Variable> a = new HashMap<>();
+        Variable v = new Variable("a", 0);
+        v.pairs = Arrays.asList(new Pair(4,7), new Pair(11,12));
+        a.put("a", v);
+
+        v = new Variable("b", 0);
+        v.pairs = Arrays.asList(new Pair(8,10));
+        a.put("b", v);
+
+        v = new Variable("c", 0);
+        v.pairs = Arrays.asList(new Pair(1,2), new Pair(8,10));
+        a.put("c", v);
+
+        v = new Variable("d", 0);
+        v.pairs = Arrays.asList(new Pair(2,6));
+        a.put("d", v);
+
+//        for (String b : a.keySet()) {
+//            Collections.reverse(a.get(b).pairs);
+//            a.get(b).pairs = a.get(b).pairs.stream().map((p) -> new Pair(13 - p.end, 13 - p.start)).collect(Collectors.toList());
+//        }
+
+        TreeMap<String, Integer> kdjsa = liveness.variableScheduling(a);
+        int q = 0;
     }
 }

@@ -1,0 +1,26 @@
+21
+H6 14
+Hh 5
+Iw 19
+Jm 8
+N4 18
+NR 12
+Qi 17
+Qu 2
+Qw 15
+Ry 21
+WU 16
+Z8 9
+bX 10
+e8 12
+g6 16
+gH 1
+gz 9
+kc 13
+o0 6
+oy 20
+sX 3
+u8 7
+vT 8
+wg 4
+yy 11

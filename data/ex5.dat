@@ -1,0 +1,20 @@
+live-in Vs
+eI := mem[7 - 17 / Vs]
+Gj := Vs / Vs
+XI := Gj * eI
+eg := Gj - 21 + Gj - XI
+eI := mem[Gj + XI * eg * XI - 58 - 43 * 2]
+to := Gj + eg
+ks := eg + 44
+pL := mem[eI - eg - 23]
+Ti := eI - XI
+Gj := mem[0 * ks + 51]
+h3 := pL / XI
+xt := mem[7 * h3 - 50 / pL]
+DG := mem[Ti * Gj]
+vA := 21 + DG + 48
+Gj := mem[6 + Ti]
+Vs := 32 + 22 / Gj - 5 - pL / xt
+J5 := 45 + pL / XI * Ti + 2 * XI * to + pL / h3 - h3
+Ti := J5 / 48
+live-out Ti Vs vA
